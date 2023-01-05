@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form 관련 태그</title>
+</head>
+<body>
+    <div>대표적인 form 태그는 로그인 시 ID/PW를 입력하는 입력form이다.</div>
+    <h1>첫 번째 form - form과 input, action과 method</h1>
+    <p>form 태그는 데이터를 전송할 떄 사용된다.</p>
+    <p>따라서 태그 내에 어떤 곳으로 보낼지, 어떤 방식(GET, POST)으로 보낼지 적어줘야 한다.</p>
+    <p>GET방식으로 데이터를 전송한다고 하면 쿼리스트링에 key=value 값으로 달아서 보내줘야 하기 때문에 중요정보 전달은 POST로 전달해야 한다.</p>
+    <p>예시<br>
+    &ltform action="어떤 곳으로" method="어떤 방식으로"&gt    <mark>-->보통 action의 어떤 곳으로는 로그인기능을 처리하는 서버쪽 코드경로를 지정해준다.</mark><br>
+        ID: &ltinput type="text"&gt         <mark>-->text는 일반 텍스트 입력칸</mark><br>
+        PW: &ltinput type="password"&gt         <mark>--> password는 마스킹 처리를 해준다.</mark><br>
+        &ltinput type="submit" value="로그인"&gt   <mark>--> submit은 버튼을 의미한다.</mark><br>
+    &lt/form&gt
+    </p>
+
+    <form action="/member/login.do" method="GET">
+        ID: <input type="text"> <br>
+        PW: <input type="password"> <br>
+        <input type="submit" value="로그인">
+        <input type="reset" value-"취소">
+    </form>
+    <br>
+    <br>
+
+    <div>위에 GET방식으로 데이터를 보냈는데도 전송되는 데이터를 확인할 수 없었다. 왜냐면 입력받는 form 데이터에 key값을 지정해주지 않았기 때문
+        <br>따라서 name 옵션을 추가해서 key값을 지정해줘야 한다.
+    </div>
+    <form action="/member/login.do" method="GET">
+        ID: <input type="text" name="userId"><br>
+        PW: <input type="password" name="userPw"><br>
+        <input type="submit" value="로그인">
+        <input type="reset" value="취소">
+    </form>
+    <div>위의 form태그에 name옵션을 통해 폼의 key값을 지정해줬다. 그래서 데이터 입력 후 submit을 해보면 쿼리스트링에 데이터가 붙어서 전송되는 것을 확인할 수 있다.</div>
+    <br><br><hr>
+    <div>따라서 GET방식으로 아이디 비번을 보내면 매우매우 취약하므로, POST방식으로 전송해야 한다.<br>
+        POST방식은 쿼리스트링이 아닌 HTTP요청메시지의 메시지바디부에 키벨류 값을 통해 데이터를 전송해준다.</div>
+    <form action="/member/login.do" method="POST">
+        ID: <input type="text" name="userId"><br>
+        PW: <input type="password" name="userPw"><br>
+        <input type="submit" value="로그인">
+        <input type="reset" value="취소">
+    </form>
+    <hr>
+    <h3>이때 form태그가 여러개가 있으면 각각 구분해주기 위해 &ltfieldset> 태그를 사용하여 묶어준다.</h3>
+    <form action="/member/login.do" method="GET">
+        <fieldset>
+            <legend>로그인 정보</legend>
+            ID: <input type="text" name="userId"><br>
+            PW: <input type="password" name="userPw"><br>
+            <input type="submit" value="로그인">
+            <input type="reset" value="취소">
+        </fieldset>
+    </form>
+    <hr>
+    <h1>두번째 form</h1>
+    <form action="" method="">
+        text: <input type="text"><br>
+        password: <input type="password"><br>
+        submit: <input type="submit"><br>
+        reset: <input type="reset"><br>
+        <hr>
+        checkbox: <input type="checkbox">짜장면 <input type="checkbox">짬뽕 <input type="checkbox">탕수육 체크박스는 중복선택 가능<br>
+        radio: <input type="radio" name="gender">남자 <input type="radio" name="gender">여자 라디오는 단일 선택만 가능<br>단, radio는 name으로 radio끼리 묶어줘야 여러개 중 하나만 선택할 수 있게 해준다. <br>
+        button: <input type="button" value="눌러봐"> 버튼은 말그대로 버튼<br>
+        file: <input type="file"> 파일추가 버튼<br>
+        hidden: <input type="hidden"> hidden은 보이지 않는데, input을 통해 데이터를 보내야 하는데 사용자에게 보여지기 싫을 때 사용된다<br>
+        date: <input type="date">
+    </form>
+    <hr>
+    <h1>세번째 form</h1>
+    <form action="" method="">
+        <fieldset>
+            <legend>좋아하는 음식(다중선택)</legend>
+            <label>
+                <input type="checkbox">피자
+            </label>
+            <input type="checkbox" id="chicken">
+            <label for="chicken">치킨</label>
+            <input type="checkbox">떡볶이
+            <input type="checkbox">튀김
+            <br>
+            <input type="submit" value="전송">
+        </fieldset>
+    </form>
+
+    <form action="" method="">
+        <fieldset>
+            <legend>취미생활</legend>
+            <input type="radio" name="hobby">코딩
+            <input type="radio" name="hobby">넷플릭스
+            <input type="radio" name="hobby">수영
+            <input type="radio" name="hobby">게임
+            <br>
+            <input type="submit" value="전송">
+        </fieldset>
+    </form>
+    <br><hr>
+
+    <h1>네번째 form - 입력칸 가이드메시지, 노입력 경고메시지</h1>
+    <div>placeholder 옵션을 통해 입력칸에 가이드메시지를 표시해줄 수 있고 <br>
+        required 옵션을 통해 입력값 없이 전송하려 할 때 경고메시지를 표시해줄 수 있다.</div>
+    <form action="">
+        아이디: <input type="text" placeholder="아이디를 입력하세요." required><br>
+        비번: <input type="password" placeholder="비밀번호를 입력하세요." required><br>
+        <input type="submit" value="로그인">
+    </form>
+    <br><hr>
+
+    <h1>다섯번째 form - 리스트 선택 form</h1>
+    <form action="/member/job.do" method="GET">
+        <fieldset>
+            <legend>직업을 선택하세요.</legend>
+            <select name="job" id="">
+                <option value="vulman">취약점진단가</option>
+                <option value="dev">개발자</option>
+                <option value="engine">엔지니어</option>
+                <!--value는 해당 항목을 선택했을 떄 서버로 전송되는 값-->
+            </select>
+            <br><input type="submit" value="전송">
+        </fieldset>
+    </form>
+    <br><hr>
+
+    <h1>여섯번째 form - 계층화된 리스트 선택 form</h1>
+    <form action="/member/job.do" method="GET">
+        <fieldset>
+            <legend>가장 어려웠던 부분은?</legend>
+            <select name="part" id="">
+                <optgroup label="자바">
+                    <option value="sangsok">상속</option>
+                    <option value="interface">인터페이스</option>
+                </optgroup>
+                <optgroup label="Oracle">
+                    <option value="ddl">DDL</option>
+                    <option value="dml">DML</option>
+                    <option value="dcl">DCL</option>
+                    <option value="jeyak">제약조건</option>
+                </optgroup>
+            </select>
+            <br>
+            <input type="submit" value="전송">
+        </fieldset>
+    </form>
+    <br><hr>
+
+    <h1>일곱번째 form</h1>
+    <form action="">
+        <fieldset>
+            <legend>좋아하는 브라우저를 선택하세요.</legend>
+            검색 <input type="text" list="browsers">
+            <datalist id="browsers">
+                <option value="Edge"></option>
+                <option value="Chrome"></option>
+                <option value="Whale"></option>
+                <option value="Safariㄴ"></option>
+                <option value="Firefox"></option>
+            </datalist>
+            <input type="submit">
+        </fieldset>
+    </form>
+</body>
+</html>
